@@ -1,0 +1,19 @@
+#!/usr/bin/env node
+
+"use strict";
+
+var checkCertExpiry = require('../');
+var _ = require('lodash');
+var async = require('async');
+var logformat = require('logformat');
+
+async.map(process.argv.slice(2), checkCertExpiry, function (err, results) {
+    if (err) {
+        console.error(logformat(_.pick(err, ['host', 'port', 'message'])));
+        process.exit(1);
+        return;
+    }
+    results.forEach(function (result) {
+        console.log(logformat(_.pick(result, ['host','port','valid_to', 'daysLeft'])));
+    });
+});

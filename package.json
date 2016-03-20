@@ -1,0 +1,68 @@
+{
+  "name": "check-cert-expiry",
+  "version": "0.0.0",
+  "description": "query an SSL/TLS server and report its certificate's expiry date",
+  "main": "index.js",
+  "bin": {
+    "check-cert-expiry": "./bin/check-cert-expiry"
+  },
+  "scripts": {
+    "test": "jshint index.js bin/*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/tcort/check-cert-expiry"
+  },
+  "keywords": [
+    "https",
+    "tls",
+    "ssl",
+    "certificate",
+    "expiry",
+    "expiration"
+  ],
+  "author": "Thomas Cort <linuxgeek@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tcort/check-cert-expiry/issues"
+  },
+  "homepage": "https://github.com/tcort/check-cert-expiry",
+  "dependencies": {
+    "async": "^2.0.0-rc.1",
+    "logformat": "^1.0.2",
+    "moment": "^2.12.0",
+    "lodash": "^4.6.1"
+  },
+  "devDependencies": {
+    "jshint": "^2.9.1"
+  },
+  "jshintConfig": {
+    "bitwise": true,
+    "curly": true,
+    "eqeqeq": true,
+    "forin": true,
+    "freeze": true,
+    "globalstrict": true,
+    "immed": true,
+    "indent": 4,
+    "moz": true,
+    "newcap": true,
+    "noarg": true,
+    "node": true,
+    "noempty": true,
+    "nonew": true,
+    "trailing": true,
+    "undef": true,
+    "smarttabs": true,
+    "strict": true,
+    "validthis": true,
+    "globals": {
+      "describe": false,
+      "it": false,
+      "before": false,
+      "beforeEach": false,
+      "after": false,
+      "afterEach": false
+    }
+  }
+}
