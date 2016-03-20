@@ -1,32 +1,32 @@
 {
-  "name": "check-cert-expiry",
+  "name": "check-cert-expiration",
   "version": "0.0.0",
-  "description": "query an SSL/TLS server and report its certificate's expiry date",
+  "description": "query an SSL/TLS server and report its certificate's expiration date",
   "main": "index.js",
   "bin": {
-    "check-cert-expiry": "./bin/check-cert-expiry"
+    "check-cert-expiration": "./bin/check-cert-expiration"
   },
   "scripts": {
     "test": "jshint index.js bin/*"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/tcort/check-cert-expiry"
+    "url": "git://github.com/tcort/check-cert-expiration"
   },
   "keywords": [
     "https",
     "tls",
     "ssl",
     "certificate",
-    "expiry",
+    "expiration",
     "expiration"
   ],
   "author": "Thomas Cort <linuxgeek@gmail.com>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/tcort/check-cert-expiry/issues"
+    "url": "https://github.com/tcort/check-cert-expiration/issues"
   },
-  "homepage": "https://github.com/tcort/check-cert-expiry",
+  "homepage": "https://github.com/tcort/check-cert-expiration",
   "dependencies": {
     "async": "^2.0.0-rc.1",
     "logformat": "^1.0.2",

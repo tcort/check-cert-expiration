@@ -5,7 +5,7 @@ var moment = require('moment');
 var tls = require('tls');
 var url = require('url');
 
-function checkCertExpiry(targetUrl, callback) {
+function checkCertExpiration(targetUrl, callback) {
     var target = { host: 'unknown', port: 0, valid_to: new Date(0), daysLeft: 0 };
 
     try {
@@ -29,4 +29,4 @@ function checkCertExpiry(targetUrl, callback) {
     });
 }
 
-module.exports = checkCertExpiry;
+module.exports = checkCertExpiration;

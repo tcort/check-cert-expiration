@@ -2,12 +2,12 @@
 
 "use strict";
 
-var checkCertExpiry = require('../');
+var checkCertExpiration = require('../');
 var _ = require('lodash');
 var async = require('async');
 var logformat = require('logformat');
 
-async.map(process.argv.slice(2), checkCertExpiry, function (err, results) {
+async.map(process.argv.slice(2), checkCertExpiration, function (err, results) {
     if (err) {
         console.error(logformat(_.pick(err, ['host', 'port', 'message'])));
         process.exit(1);
