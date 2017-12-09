@@ -2,10 +2,10 @@
 
 "use strict";
 
-var checkCertExpiration = require('../');
-var _ = require('lodash');
-var async = require('async');
-var logformat = require('logformat');
+const checkCertExpiration = require('../');
+const _ = require('lodash');
+const async = require('async');
+const logformat = require('logformat');
 
 async.map(process.argv.slice(2), checkCertExpiration, function (err, results) {
     if (err) {

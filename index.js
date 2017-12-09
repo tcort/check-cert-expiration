@@ -1,12 +1,12 @@
 "use strict";
 
-var _ = require('lodash');
-var moment = require('moment');
-var tls = require('tls');
-var url = require('url');
+const _ = require('lodash');
+const moment = require('moment');
+const tls = require('tls');
+const url = require('url');
 
 function checkCertExpiration(targetUrl, callback) {
-    var target = { host: 'unknown', port: 0, valid_to: new Date(0), daysLeft: 0 };
+    let target = { host: 'unknown', port: 0, valid_to: new Date(0), daysLeft: 0 };
 
     try {
         target = url.parse(targetUrl);
@@ -17,7 +17,7 @@ function checkCertExpiration(targetUrl, callback) {
         return;
     }
 
-    var sd = tls.connect(target.port, target.host, function () {
+    const sd = tls.connect(target.port, target.host, () => {
         target.valid_to = sd.getPeerCertificate().valid_to;
         target.daysLeft = moment(new Date(target.valid_to)).diff(new Date(), 'days');
         sd.end();
