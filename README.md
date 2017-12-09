@@ -16,8 +16,8 @@ The `check-cert-expiration` script accepts 1 or more URLs as command line argume
 Happy path (return code is `0`):
 
     $ check-cert-expiration tomcort.com github.com
-    host=tomcort.com port=443 valid_to="Apr 15 13:54:00 2016 GMT" daysLeft=26
-    host=github.com port=443 valid_to="May 17 12:00:00 2018 GMT" daysLeft=787
+    host=tomcort.com port=443 valid_to=2018-03-09T10:34:20.000Z daysLeft=89
+    host=github.com port=443 valid_to=2018-05-17T12:00:00.000Z daysLeft=159
 
 Error path (return code is `1`):
 
@@ -34,7 +34,7 @@ Parameters:
 * `callback` - a callback function which accepts `(err, result`). `result` will have the following properties:
  * `host` - hostname of the host checked.
  * `port` - TCP port number of the host checked,
- * `valid_to` - JavaScript Date string.
+ * `valid_to` - ISO8601 timestamp string.
  * `daysLeft` - how many days left until the certificate expires.
 
 ### Examples
