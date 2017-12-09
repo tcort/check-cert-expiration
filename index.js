@@ -18,7 +18,7 @@ function checkCertExpiration(targetUrl, callback) {
     }
 
     var sd = tls.connect(target.port, target.host, function () {
-        target.valid_to = sd.getPeerCertificate().valid_to; 
+        target.valid_to = sd.getPeerCertificate().valid_to;
         target.daysLeft = moment(new Date(target.valid_to)).diff(new Date(), 'days');
         sd.end();
         callback(null, target);
