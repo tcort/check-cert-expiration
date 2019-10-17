@@ -1,6 +1,6 @@
 {
   "name": "check-cert-expiration",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "query an SSL/TLS server and report its certificate's expiration date",
   "main": "index.js",
   "bin": {
