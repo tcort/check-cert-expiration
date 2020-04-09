@@ -12,8 +12,14 @@ function checkCertExpiration(targetUrl, callback) {
         target = url.parse(targetUrl);
         target.host = target.host || targetUrl;
         target.port = target.port || 443;
+        target.protocol = target.protocol || 'https:';
     } catch (err) {
         callback(err, target);
+        return;
+    }
+
+    if (target.protocol !== 'https:') {
+        callback(_.extend(new Error('protocol is not https'), target), target);
         return;
     }
 
