@@ -32,10 +32,10 @@ Parameters:
 
 * `targetUrl` - a server URL (e.g. `https://www.tomcort.com/`) or hostname (e.g. `tomcort.com`).
 * `callback` - a callback function which accepts `(err, result`). `result` will have the following properties:
- * `host` - hostname of the host checked.
- * `port` - TCP port number of the host checked,
- * `valid_to` - ISO8601 timestamp string.
- * `daysLeft` - how many days left until the certificate expires.
+  * `host` - hostname of the host checked.
+  * `port` - TCP port number of the host checked,
+  * `valid_to` - ISO8601 timestamp string.
+  * `daysLeft` - how many days left until the certificate expires.
 
 ### Examples
 
