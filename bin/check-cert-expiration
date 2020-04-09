@@ -3,17 +3,14 @@
 "use strict";
 
 const checkCertExpiration = require('../');
-const _ = require('lodash');
-const async = require('async');
-const logformat = require('logformat');
 
-async.map(process.argv.slice(2), checkCertExpiration, function (err, results) {
-    if (err) {
-        console.error(logformat(_.pick(err, ['host', 'port', 'message'])));
+process.argv.slice(2).forEach(async (url) => {
+    try {
+        const { host, port, valid_to, daysLeft } = await checkCertExpiration(url);
+        console.log(`host=${host} port=${port} valid_to=${valid_to} daysLeft=${daysLeft}`);
+    } catch (err) {
+        console.error(err);
         process.exit(1);
         return;
     }
-    results.forEach(function (result) {
-        console.log(logformat(_.pick(result, ['host','port','valid_to', 'daysLeft'])));
-    });
 });

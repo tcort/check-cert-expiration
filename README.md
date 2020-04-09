@@ -22,34 +22,55 @@ Happy path (return code is `0`):
 Error path (return code is `1`):
 
     $ check-cert-expiration does-not-exist.example.com
-    host=does-not-exist.example.com port=443 message="getaddrinfo ENOTFOUND"
+    { CHECK_CERT_EXPIRATION_COMM: getaddrinfo ENOTFOUND does-not-exist.example.com does-not-exist.example.com:443
+        at GetAddrInfoReqWrap.onlookup [as oncomplete] (dns.js:56:26)
+      errno: 'ENOTFOUND',
+      code: 'ENOTFOUND',
+      syscall: 'getaddrinfo',
+      hostname: 'does-not-exist.example.com',
+      host: 'does-not-exist.example.com',
+      port: 443,
+      name: 'CHECK_CERT_EXPIRATION_COMM' }
 
 ## API
 
-### checkCertExpiration(targetUrl, callback)
+### checkCertExpiration(targetUrl)
 
 Parameters:
 
 * `targetUrl` - a server URL (e.g. `https://www.tomcort.com/`) or hostname (e.g. `tomcort.com`).
-* `callback` - a callback function which accepts `(err, result`). `result` will have the following properties:
+
+Return Value:
+
+* result object with the following properties:
   * `host` - hostname of the host checked.
   * `port` - TCP port number of the host checked,
   * `valid_to` - ISO8601 timestamp string.
   * `daysLeft` - how many days left until the certificate expires.
 
+Errors:
+
+Errors with the following values of `err.name` may occur:
+* `CHECK_CERT_EXPIRATION_URL_PARSE` - when a URL parse error is encountered.
+* `CHECK_CERT_EXPIRATION_BAD_PROTOCOL` - when the protocol portion of the URL is not `https:`
+* `CHECK_CERT_EXPIRATION_COMM` - when there is some type of communications error. 
+
 ### Examples
 
-    "use strict";
+    'use strict';
 
-    var checkCertExpiration = require('check-cert-expiration');
+    const checkCertExpiration = require('check-cert-expiration');
 
-    checkCertExpiration('tomcort.com', function (err, result) {
-        if (err) {
-            console.error(err);
-            return;
+    (async function () {
+        try {
+            const { daysLeft, host, port } = await checkCertExpiration('tomcort.com');
+            console.log(`${daysLeft} days until the certificate expires for ${host}:${port}`);
+            process.exit(0);
+        } catch (err) {
+            console.error(`${err.name}:${err.message}`);
+            process.exit(1);
         }
-        console.log("%s days until the certificate expires for %s:%s", result.daysLeft, result.host, result.port);
-    });
+    })();
 
 ## Testing
 
