@@ -11,13 +11,22 @@ Queries an SSL/TLS server and reports when its certificate expires.
 
 The `check-cert-expiration` script accepts 1 or more URLs as command line arguments and prints the results.
 
+One optional command line argument is supported:
+
+- `--days-left N` exit with status code `1` if `N` is greater than or equal to `daysLeft`. Useful for warning about certificates expiring soon.
+
 ### Examples
 
 Happy path (return code is `0`):
 
+    # check a number of sites:
     $ check-cert-expiration tomcort.com github.com
     host=tomcort.com port=443 valid_to=2018-03-09T10:34:20.000Z daysLeft=89
     host=github.com port=443 valid_to=2018-05-17T12:00:00.000Z daysLeft=159
+
+    # check for certificate expiring in the next two weeks:
+    $ check-cert-expiration --days-left 14 tomcort.com
+    host=tomcort.com port=443 valid_to=2020-05-16T17:38:41.000Z daysLeft=37
 
 Error path (return code is `1`):
 
@@ -31,6 +40,17 @@ Error path (return code is `1`):
       host: 'does-not-exist.example.com',
       port: 443,
       name: 'CHECK_CERT_EXPIRATION_COMM' }
+
+    $ check-cert-expiration --days-left 42 tomcort.com
+    { CHECK_CERT_EXPIRATION_DAYS_LEFT: daysLeft is less than or equal to the --days-left command line option
+        at process.argv.forEach (/Users/thomasc/repos/check-cert-expiration/bin/check-cert-expiration:27:25)
+        at process._tickCallback (internal/process/next_tick.js:68:7)
+    name: 'CHECK_CERT_EXPIRATION_DAYS_LEFT',
+    host: 'tomcort.com',
+    port: 443,
+    valid_to: '2020-05-16T17:38:41.000Z',
+    daysLeft: 37,
+    warnDaysLeft: 42 }
 
 ## API
 

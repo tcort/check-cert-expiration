@@ -10,9 +10,31 @@ if (process.argv.length < 3) {
     process.exit(1);
 }
 
-process.argv.slice(2).forEach(async (url) => {
+process.argv.shift(); // consume /path/to/node
+process.argv.shift(); // consume /path/to/check-cert-expiration
+
+let warnDaysLeft = NaN;
+if (process.argv[0] === '--days-left') {
+    process.argv.shift(); // consume --days-left
+    warnDaysLeft = parseInt(process.argv[0]);
+    process.argv.shift(); // consume N
+}
+
+process.argv.forEach(async (url) => {
     try {
         const { host, port, valid_to, daysLeft } = await checkCertExpiration(url);
+        if (!isNaN(warnDaysLeft) && daysLeft <= warnDaysLeft) {
+            const err = new Error('daysLeft is less than or equal to the --days-left command line option');
+            Object.assign(err, {
+                name: 'CHECK_CERT_EXPIRATION_DAYS_LEFT',
+                host,
+                port,
+                valid_to,
+                daysLeft,
+                warnDaysLeft,
+            });
+            throw err;
+        }
         console.log(`host=${host} port=${port} valid_to=${valid_to} daysLeft=${daysLeft}`);
     } catch (err) {
         console.error(err);
