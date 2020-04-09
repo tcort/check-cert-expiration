@@ -3,6 +3,12 @@
 "use strict";
 
 const checkCertExpiration = require('../');
+const path = require('path');
+
+if (process.argv.length < 3) {
+    console.error(`usage: ${path.basename(process.argv[1])} [hostnameOrUrl...]`);
+    process.exit(1);
+}
 
 process.argv.slice(2).forEach(async (url) => {
     try {
