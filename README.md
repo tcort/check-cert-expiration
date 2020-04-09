@@ -19,12 +19,10 @@ One optional command line argument is supported:
 
 Happy path (return code is `0`):
 
-    # check a number of sites:
     $ check-cert-expiration tomcort.com github.com
     host=tomcort.com port=443 valid_to=2018-03-09T10:34:20.000Z daysLeft=89
     host=github.com port=443 valid_to=2018-05-17T12:00:00.000Z daysLeft=159
 
-    # check for certificate expiring in the next two weeks:
     $ check-cert-expiration --days-left 14 tomcort.com
     host=tomcort.com port=443 valid_to=2020-05-16T17:38:41.000Z daysLeft=37
 
