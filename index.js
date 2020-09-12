@@ -31,8 +31,10 @@ function checkCertExpiration(targetUrl) {
         const sd = tls.connect(target.port, target.host, {
             servername: target.host,
         }, () => {
-            result.valid_to = new Date(sd.getPeerCertificate().valid_to).toJSON(); // ISO8601
+            const peerCertificate = sd.getPeerCertificate(true);
+            result.valid_to = new Date(peerCertificate.valid_to).toJSON(); // ISO8601
             result.daysLeft = moment(result.valid_to, moment.ISO_8601).diff(moment(), 'days');
+            result.fingerprint = peerCertificate.issuerCertificate.fingerprint;
             sd.end();
             resolve(result);
         });
