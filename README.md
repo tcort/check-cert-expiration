@@ -62,8 +62,9 @@ Return Value:
 
 * result object with the following properties:
   * `host` - hostname of the host checked.
-  * `port` - TCP port number of the host checked,
+  * `port` - TCP port number of the host checked.
   * `valid_to` - ISO8601 timestamp string.
+  * `fingerprint` - the SHA-1 digest of the certificate as a : separated hexadecimal string.
   * `daysLeft` - how many days left until the certificate expires.
 
 Errors:
