@@ -33,8 +33,8 @@ function checkCertExpiration(targetUrl) {
         }, () => {
             const peerCertificate = sd.getPeerCertificate(true);
             result.valid_to = new Date(peerCertificate.valid_to).toJSON(); // ISO8601
-            result.daysLeft = moment(result.valid_to, moment.ISO_8601).diff(moment(), 'days');
             result.fingerprint = peerCertificate.fingerprint;
+            result.daysLeft = moment(result.valid_to, moment.ISO_8601).diff(moment(), 'days');
             sd.end();
             resolve(result);
         });
