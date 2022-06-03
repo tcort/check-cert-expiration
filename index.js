@@ -35,6 +35,7 @@ function checkCertExpiration(targetUrl) {
             result.valid_to = new Date(peerCertificate.valid_to).toJSON(); // ISO8601
             result.daysLeft = moment(result.valid_to, moment.ISO_8601).diff(moment(), 'days');
             result.fingerprint = peerCertificate.issuerCertificate.fingerprint;
+            result.peerCertificate = peerCertificate;
             sd.end();
             resolve(result);
         });
